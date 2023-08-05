@@ -1,0 +1,42 @@
+{
+    "name": "FastAPI Todo App",
+    // "dockerFile": "./Dockerfile",
+    "dockerComposeFile": "./docker-compose.yml",
+    "service": "backend",
+    // "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "settings": {
+        "python.sortImports.enabled": true,
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.linting.pylintArgs": [
+            "--disable",
+            "E1101,E0213,R0201",
+            "--extension-pkg-whitelist",
+            "pydantic",
+        ],
+        "python.linting.mypyEnabled": true,
+        "python.analysis.typeCheckingMode": "strict",
+        "python.analysis.diagnosticSeverityOverrides": {
+            "reportMissingTypeStubs": "none",
+            "reportUnknownParameterType": "none",
+            "reportUnknownMemberType": "none",
+            "reportUnknownArgumentType": "none",
+            "reportUnknownVariableType": "none",
+        }
+    },
+    "extensions": [
+        "ms-python.python",
+        "njpwerner.autodocstring",
+        "ms-python.vscode-pylance",
+        "TabNine.tabnine-vscode",
+        // "GitHub.copilot",
+    ],
+    // "postCreateCommand": [
+    //     "python -V /bin/sh",
+    // "pytnv --version",
+    // "poetry init --name demo-app --dependency fastapi --dependency uvicorn[standard]",
+    // "/root/.local/bin/poetry install --no-root",
+    // "poetry run uvicorn api.main:app --host 0.0.0.0 --reload"
+    // ]
+}

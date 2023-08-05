@@ -1,0 +1,8 @@
+# .dockerignore
+*.log
+*.pyc
+__pycache__/
+myenv/
+dist/
+build/
+.mypy_cache/

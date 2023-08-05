@@ -1,0 +1,26 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend_container
+    volumes:
+      - ../:/workspace
+    command: bash
+    tty: true
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: db_container
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "33333:5432"
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+volumes:
+  postgres_data:
