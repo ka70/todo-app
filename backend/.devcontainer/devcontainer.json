@@ -39,12 +39,12 @@
     // "/root/.local/bin/poetry install --no-root",
     // "poetry run uvicorn api.main:app --host 0.0.0.0 --reload"
     // ]
-    // "mounts": [
-    //     {
-    //         "source": "${localWorkspaceFolder}/.aws",
-    //         "target": "/root/.aws",
-    //         "type": "bind",
-    //         "consistency": "cached"
-    //     }
-    // ]
+    "mounts": [
+        {
+            "source": "${localWorkspaceFolder}/.aws",
+            "target": "/root/.aws",
+            "type": "bind",
+            "consistency": "cached"
+        }
+    ]
 }
