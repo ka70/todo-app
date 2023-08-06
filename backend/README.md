@@ -21,3 +21,5 @@ postgres接続
 
 <br>
 https://qiita.com/horiuchie/items/c144de41dd64c1762722
+<br>
+https://zenn.dev/sh0nk/books/537bb028709ab9
