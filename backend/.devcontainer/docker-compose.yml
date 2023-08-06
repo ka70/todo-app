@@ -11,6 +11,7 @@ services:
     tty: true
     depends_on:
       - db
+      - localstack
   db:
     image: postgres:latest
     container_name: db_container
@@ -22,5 +23,16 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       POSTGRES_DB: dbname
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack_container
+    environment:
+      - SERVICES=dynamodb
+      - DEFAULT_REGION=ap-northeast-1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - ./localstack:/tmp/localstack
+    ports:
+      - 4566:4566
 volumes:
   postgres_data:

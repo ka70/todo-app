@@ -1,28 +1,18 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-
-from api.db import Base
+from api.db import BaseModel
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute
 
 
-class Task(Base):
-    __tablename__ = "tasks"
+class TaskModel(BaseModel):
+    class Meta(BaseModel.Meta):  # Metaクラスを再定義せず、BaseModelのMetaクラスを継承するため
+        table_name = "tasks"
 
-    id = Column(Integer, primary_key=True, index=True, nullable=False, unique=True)
-    title = Column(String(1024), nullable=False)
-
-    done = relationship("Done", back_populates="task", cascade="delete")
-
-
-class Done(Base):
-    __tablename__ = "dones"
-
-    id = Column(
-        Integer,
-        ForeignKey("tasks.id"),
-        primary_key=True,
-        index=True,
-        nullable=False,
-        unique=True,
-    )
-
-    task = relationship("Task", back_populates="done")
+    userId = UnicodeAttribute(hash_key=True)
+    taskId = UnicodeAttribute(range_key=True)
+    title = UnicodeAttribute()
+    description = UnicodeAttribute(null=True, default=None)
+    status = UnicodeAttribute(default="pending")  # Removed choices
+    priority = UnicodeAttribute(default="medium")  # Removed choices
+    category = UnicodeAttribute(null=True)
+    dueDate = NumberAttribute(null=True, default=None)
+    createdAt = NumberAttribute()
+    updatedAt = NumberAttribute()

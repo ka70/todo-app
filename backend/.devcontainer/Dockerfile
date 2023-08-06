@@ -66,4 +66,17 @@ RUN curl https://pyenv.run | bash && \
     echo '# Add Poetry path to PATH variable' >> ~/.bashrc && \
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 
+# Install AWS CLI and SAM CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    sudo ./aws/install && \
+    rm awscliv2.zip && \
+    curl -L "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip" -o "samcliv2.zip" && \
+    unzip samcliv2.zip -d sam-installation && \
+    sudo ./sam-installation/install && \
+    rm samcliv2.zip && \
+    echo '# Install AWS CLI and SAM CLI' >> ~/.bashrc && \
+    echo 'export PATH="/root/aws/dist:$PATH"' >> ~/.bashrc && \
+    echo 'complete -C "/usr/local/bin/aws_completer" aws' >> ~/.bashrc
+
 CMD ["/bin/bash"]

@@ -1,16 +1,17 @@
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+# api/db.py
 
-ASYNC_DB_URL = "postgresql+asyncpg://username:password@db:5432/dbname"
+from pynamodb.models import Model
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute
 
-async_engine = create_async_engine(ASYNC_DB_URL, echo=True)
-async_session = sessionmaker(
-    autocommit=False, autoflush=False, bind=async_engine, class_=AsyncSession
-)
-
-Base = declarative_base()
+REGION = "ap-northeast-1"
+ENDPOINT_URL = "http://localstack:4566"  # localstackを使用する場合、AWSのエンドポイントURLとは異なります
+AWS_ACCESS_KEY_ID = "dummy"
+AWS_SECRET_ACCESS_KEY = "dummy"
 
 
-async def get_db():
-    async with async_session() as session:
-        yield session
+class BaseModel(Model):
+    class Meta:
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        region = REGION
+        host = ENDPOINT_URL  # localstack等を使用する場合に指定
