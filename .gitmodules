@@ -1,0 +1,3 @@
+[submodule "frontend/frontend/todo-app"]
+	path = frontend/frontend/todo-app
+	url = https://github.com/ka70/todo-app.git
