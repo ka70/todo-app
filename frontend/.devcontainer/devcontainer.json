@@ -1,0 +1,7 @@
+{
+    "name": "Nextjs Todo App",
+    "dockerFile": "./Dockerfile",
+    "service": "frontend",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+}
