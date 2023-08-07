@@ -4,4 +4,8 @@
     "service": "frontend",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace",
+    "extensions": [
+		"dsznajder.es7-react-js-snippets",
+		"dbaeumer.vscode-eslint"
+	]
 }

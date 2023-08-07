@@ -1,21 +1,53 @@
-import { getAlltodos } from "@/api";
-import AddTask from "./AddTask";
-import TodoList from "./TodoList";
+'use client'
 
+import { Flex, Heading, IconButton, Link, VStack, useColorMode } from "@chakra-ui/react";
+import { FaGithub, FaLinkedin, FaMoon, FaSun } from 'react-icons/fa';
+import AddTask from "./[components]/AddTask";
+import TaskList from "./[components]/TaskList";
 
-export default async function Page() {
-  const todos = await getAlltodos();
+export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode();
 
-  return <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-200s">
-    <h1 className="text-4xl font-bold text-gray-700 -mt-32">
-      Todo App
-    </h1>
-    <div className="w-full max-w-xl mt-5">
-      <div className="w-full px-8 py-6 bg-white shadow-md rounded-lg">
-        <AddTask />
-        <TodoList todos={todos} />
-      </div>
-    </div>
-  </main>;
+  return (
+    <VStack p={4} minH='100vh' pb={28}>
+      <IconButton
+        icon={colorMode === 'light' ? <FaSun /> : <FaMoon />}
+        isRound='true'
+        size='md'
+        alignSelf='flex-end'
+        onClick={toggleColorMode}
+      />
+
+      <Heading
+        p='5'
+        fontWeight='extrabold'
+        size='xl'
+        bgGradient='linear(to-l, teal.300, blue.500)'
+        bgClip='text'
+      >
+        Todo App
+      </Heading>
+      <AddTask />
+      <TaskList />
+      <Flex position='absolute' bottom='5'>
+        <Link href='https://github.com/raminhuk' target='_blank' >
+          <IconButton
+            icon={<FaGithub />}
+            isRound='true'
+            size='md'
+            m='1'
+          />
+        </Link>
+        <Link href='https://www.linkedin.com/in/fabio-junior-raminhuk-740669121/' target='_blank'>
+          <IconButton
+            icon={<FaLinkedin />}
+            isRound='true'
+            size='md'
+            m='1'
+          />
+        </Link>
+      </Flex>
+    </VStack>
+
+  )
 }
-
