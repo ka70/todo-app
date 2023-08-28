@@ -31,8 +31,9 @@ services:
       - DEFAULT_REGION=ap-northeast-1
       - DATA_DIR=/tmp/localstack/data
     volumes:
-      - ./localstack:/tmp/localstack
+      - localstack_data:/tmp/localstack/
     ports:
       - 4566:4566
 volumes:
   postgres_data:
+  localstack_data:
