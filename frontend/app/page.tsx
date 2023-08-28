@@ -46,16 +46,20 @@ export default function Home() {
     setTasks([]);
   }
 
-  function checkTask(id: number) {
+  function checkTask(taskId: string) {
     const newTasksCheck = tasks.map((task) => {
-      if (task.id === id) {
-        task.check = !task.check;
+      if (task.taskId === taskId) {
+        return {
+          ...task,
+          status: task.status === 'completed' ? 'pending' : 'completed',
+        };
       }
       return task;
     });
 
     setTasks(newTasksCheck);
   }
+
 
   function updateTask(id: number, body: string, onClose: () => void) {
     const info = body.trim();
