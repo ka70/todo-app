@@ -37,8 +37,8 @@ export default function Home() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  function deleteTask(id: number) {
-    const newTasks = tasks.filter((task) => task.id !== id);
+  function deleteTask(taskId: string) {
+    const newTasks = tasks.filter((task) => task.taskId !== taskId);
     setTasks(newTasks);
   }
 

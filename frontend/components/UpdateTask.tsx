@@ -40,7 +40,7 @@ function UpdateTask({ task, updateTask }) {
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <FormControl>
-                            <Input ref={initialRef} placeholder='Digite sua tarefa' defaultValue={task.body} onChange={(e) => setBody(e.target.value)} onFocus={(e) => setBody(e.target.value)} />
+                            <Input ref={initialRef} placeholder='新しいタスク名' defaultValue={task.body} onChange={(e) => setBody(e.target.value)} onFocus={(e) => setBody(e.target.value)} />
                         </FormControl>
                     </ModalBody>
 
