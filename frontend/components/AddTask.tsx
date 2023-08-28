@@ -1,16 +1,14 @@
 import { Button, HStack, Input, useToast } from "@chakra-ui/react";
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
-
 import { AddTaskProps, Task } from './type';
-
 
 export default function AddTask({ addTask }: AddTaskProps) {
     const toast = useToast();
     const [content, setContent] = useState<string>('');
     const [statusInput, setStatusInput] = useState<boolean>(true);
 
-    function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
         const taskText = content.trim();
@@ -29,13 +27,48 @@ export default function AddTask({ addTask }: AddTaskProps) {
         }
 
         const task: Task = {
-            id: nanoid(),
-            body: taskText,
-            check: false,
+            userId: "dummy_token",  // 実際には適切なユーザーIDを設定する必要があります
+            taskId: nanoid(),
+            title: taskText,
+            description: null,
+            status: "pending",
+            priority: "medium",
+            category: null,
+            dueDate: null,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
         };
 
-        addTask(task);
-        setContent('');
+        try {
+            const res = await fetch('/api/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(task),
+            });
+
+            if (res.ok) {
+                const newTask = await res.json();
+                addTask(newTask);
+                setContent('');
+            } else {
+                toast({
+                    title: 'タスクの追加に失敗しました。',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
+        } catch (error) {
+            console.error('Failed to add task:', error);
+            toast({
+                title: 'タスクの追加に失敗しました。',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
+        }
     }
 
     if (content && !statusInput) {
@@ -67,4 +100,3 @@ export default function AddTask({ addTask }: AddTaskProps) {
         </form >
     );
 }
-

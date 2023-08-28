@@ -10,11 +10,30 @@ import Task from './type';
 
 export default function Home() {
   const toast = useToast();
-  const [tasks, setTasks] = useState<Task[]>(
-    () => JSON.parse(localStorage.getItem("tasks")) || []
-  );
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
+    // コンポーネントがマウントされたときにサーバーからタスクを取得
+    const fetchTasks = async () => {
+      try {
+        const res = await fetch('/api/tasks'); // このURLはAPIがホストされている場所に変更してください
+        const data = await res.json();
+
+        // ローカルの状態を更新
+        setTasks(data);
+
+        // ローカルストレージを更新
+        localStorage.setItem("tasks", JSON.stringify(data));
+      } catch (error) {
+        console.error("タスクの取得に失敗しました:", error);
+      }
+    };
+
+    fetchTasks();
+  }, [tasks]);
+
+  useEffect(() => {
+    // タスクが変更されたときにローカルストレージを更新
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
