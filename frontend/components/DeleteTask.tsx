@@ -70,7 +70,6 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({ task, deleteTask }) => {
     const handleDelete = async () => {
         try {
             const res = await fetch(`/api/tasks/${task.taskId}`, { method: 'DELETE' });
-            console.log(res);
             if (res.ok) {
                 await deleteTask(task.taskId, onClose);
                 toast({

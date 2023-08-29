@@ -22,7 +22,7 @@ export async function PUT(
     const updatedTaskData = await request.json(); // Data from the request
 
     const putResponse = await fetch(`http://host.docker.internal:8000/tasks/${taskId}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },

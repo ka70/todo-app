@@ -61,8 +61,8 @@ export default function Home() {
   }
 
 
-  function updateTask(id: number, body: string, onClose: () => void) {
-    const info = body.trim();
+  function updateTask(taskId: string, updatedTask: Task, onClose: () => void) {
+    const info = updatedTask.title.trim();
 
     if (!info) {
       toast({
@@ -72,22 +72,20 @@ export default function Home() {
         duration: 2000,
         isClosable: true,
       });
-
       return;
     }
 
-    const newTasksUpdate = tasks.map((task) => {
-      if (task.id === id) {
-        task.body = body;
-        task.check = false;
+    const newTasks = tasks.map((task) => {
+      if (task.taskId === taskId) {
+        return updatedTask;
       }
       return task;
     });
 
-    setTasks(newTasksUpdate);
-
-    onClose();
+    setTasks(newTasks);
+    onClose(); // モーダルを閉じる
   }
+
 
   function addTask(task: Task) {
     setTasks([...tasks, task]);
