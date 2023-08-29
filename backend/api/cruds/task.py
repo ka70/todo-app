@@ -94,6 +94,18 @@ def delete_task(user_id: str, task_id: str) -> bool:
         return None
 
 
+def delete_all_tasks(user_id: str) -> bool:
+    """Delete all tasks by a specific user ID."""
+    try:
+        tasks = TaskModel.query(user_id)
+        for task in tasks:
+            task.delete()
+        return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
+
+
 # UTILITY
 def convert_to_schema(task: TaskModel) -> Task:
     """Convert a TaskModel instance to a Pydantic Task schema."""

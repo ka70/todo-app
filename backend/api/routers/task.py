@@ -26,6 +26,15 @@ async def create_task(
     return created_task
 
 
+@router.delete("/tasks")
+async def delete_task(current_user: str = Depends(get_current_user)):
+    """Delete all tasks by user ID"""
+    is_deleted = task_crud.delete_all_tasks(current_user)
+    if not is_deleted:
+        raise HTTPException(status_code=404, detail="ALL tasks deletion failed")
+    return {"status": "All tasks deleted successfully"}
+
+
 @router.get("/tasks/{task_id}", response_model=Task)
 async def get_task(task_id: str, current_user: str = Depends(get_current_user)) -> Task:
     """Retrieve a task by its ID"""
